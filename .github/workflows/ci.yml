@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r deployment/requirements.txt
+          pip install flake8
+
+      - name: Lint (syntax check)
+        run: flake8 src deployment --count --select=E9,F63,F7,F82 --show-source
+
+      - name: Build Docker image
+        run: |
+          # Inject mock files inside the models/ folder so COPY in Dockerfile doesn't crash
+          mkdir -p models
+          touch models/yolov8s.pt
+          touch models/yolov8s.onnx
+          touch models/behavior_best.onnx
+          touch models/behavior_best.onnx.data
+          touch models/behavior_class_names.json
+          touch models/emotion_best.onnx
+          touch models/emotion_best.onnx.data
+          touch models/emotion_class_names.json
+          docker build -t attention-system:ci .

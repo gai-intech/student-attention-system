@@ -1,0 +1,30 @@
+# Virtual Environment
+venv/
+.venv/
+env/
+
+# Python Cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Large Model Files (uploaded directly via scp to the server)
+models/
+*.pt
+*.onnx
+*.onnx.data
+
+# Local mlflow artifacts
+mlruns/
+mlflow.db
+
+# Media and logs
+*.mp4
+*.avi
+*.mkv
+*.log
+.virtual_documents/
+
+# OS specific files
+.DS_Store
+Thumbs.db

@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: attention-deployment
+  labels:
+    app: attention
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: attention
+  template:
+    metadata:
+      labels:
+        app: attention
+    spec:
+      containers:
+        - name: attention
+          image: attention-system:v1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
+          resources:
+            requests:
+              memory: "1Gi"
+              cpu: "500m"
+            limits:
+              memory: "3Gi"
+              cpu: "2"

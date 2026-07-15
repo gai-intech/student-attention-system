@@ -1,0 +1,3 @@
+model,val_acc
+V1_mnv3small,0.9278
+V2_mnv3large,0.9328

@@ -1,0 +1,8 @@
+{
+  "model": "yolov8m.pt",
+  "conf": 0.25,
+  "imgsz": 1280,
+  "max_det": 300,
+  "person_class": 0,
+  "tracker": "bytetrack.yaml"
+}
